@@ -10,8 +10,9 @@ $app = AppFactory::create();
 
 
 $app->addBodyParsingMiddleware();
+
 // ============================================
-// LOAD ROUTES
+// FASE 1.1 - Routing Dasar
 // ============================================
 require __DIR__ . '/../belajar/fase-1/1.1-routing-dasar/get.php';
 require __DIR__ . '/../belajar/fase-1/1.1-routing-dasar/post.php';
@@ -20,7 +21,10 @@ require __DIR__ . '/../belajar/fase-1/1.1-routing-dasar/patch.php';
 require __DIR__ . '/../belajar/fase-1/1.1-routing-dasar/delete.php';
 
 
-
+// ============================================
+// FASE 1.2 - Request & Response
+// ============================================
+require __DIR__ . '/../belajar/fase-1/1.2-request-response/request.php';
 
 
 
