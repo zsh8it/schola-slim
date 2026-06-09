@@ -98,3 +98,48 @@ $app->get('/belajar/request/header', function (Request $request, Response $respo
     $response->getBody()->write($data);
     return $response;
 });
+
+
+// ----------------------------------------------------------
+// E). BACA RAW BODY
+//     Kalau mau baca body mentah (misalnya JSON string)
+//     Berguna untuk debug atau custom parsing
+// ----------------------------------------------------------
+$app->post('/belajar/request/raw', function ( Request $request, Response $response, $args) {
+
+    // Ambil hasil parse dari middleware
+    $parsed = $request->getParsedBody();
+
+    // Baca body mentah sebagai string
+    // $rawBody = (string) $request->getBody(); // error karna sudah pakai addBodyParsingMiddleware()
+    $rawBody = json_encode($parsed);
+
+    // Coba decode kalau isinya  JSON
+    $decoded = json_decode($rawBody, true);
+    var_dump($rawBody);
+    var_dump($decoded);
+
+    $data = "Raw Body   : $rawBody\n\n"
+          . "Decoded    : " . print_r($decoded, true);
+
+    $response->getBody()->write($data);
+    return $response;
+});
+
+
+// ----------------------------------------------------------
+// F). CEK APAKAH HEADER ADA 
+//     Validasi sebelum pakai headernya
+// ----------------------------------------------------------
+$app->post('/belajar/request/cek-header', function ( Request $request, Response $response, $args) {
+
+    // hasHeader() -> true/false
+    $adaAuth        = $request->hasHeader('Authorization');
+    $adaContentType = $request->hasHeader('Content-Type');
+
+    $data = "Ada Authorization   :" . ($adaAuth ? 'YA' : 'TIDAK') ."\n"
+          . "Ada Content-Type    :" . ($adaContentType ? 'YA' : 'TIDAK') . "\n";
+
+    $response->getBody()->write($data);
+    return $response;
+});
