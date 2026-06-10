@@ -25,6 +25,7 @@ require __DIR__ . '/../belajar/fase-1/1.1-routing-dasar/delete.php';
 // FASE 1.2 - Request & Response
 // ============================================
 require __DIR__ . '/../belajar/fase-1/1.2-request-response/request.php';
+require __DIR__ . '/../belajar/fase-1/1.2-request-response/response.php';
 
 
 
