@@ -1,0 +1,133 @@
+FASE 1 → Fondasi Slim
+	1.1 → Routing Dasar (GET, POST, PUT, PATCH, DELETE) ✅
+	1.2 → Request & Response ✅
+	1.3 → Route Parameter & Query String
+	1.4 → Middleware Dasar
+	1.5 → Error Handling
+
+FASE 2 → Database & ORM
+	2.1 → Koneksi Database MySQL
+	2.2 → Eloquent ORM (Laravel DB di Slim)
+	2.3 → Migration & Seeder
+	2.4 → CRUD dengan Eloquent
+
+FASE 3 → REST API
+	3.1 → Konsep REST API
+	3.2 → JSON Response
+	3.3 → API Routing (Resource)
+	3.4 → CRUD API (GET, POST, PUT, DELETE)
+	3.5 → Validasi Input
+	3.6 → Error Response Standard
+
+FASE 4 → Authentication
+	4.1 → Register & Login API
+	4.2 → JWT Token
+	4.3 → Protected Route (Middleware Auth)
+	4.4 → Refresh Token
+
+FASE 5 → Best Practice & Finishing
+	5.1 → Struktur Folder MVC
+	5.2 → Repository Pattern
+	5.3 → Environment (.env)
+	5.4 → Testing API dengan Postman
+	5.5 → Deploy ke Server
+
+
+---------------------------------------------------------------
+CATATAN BELAJAR:
+
+composer require slim/slim:"4.*"
+composer require slim/psr7 (?)
+
+1.4
+Middleware Global   →  $app->add(function($request, $handler) { ... })
+                       Jalan di SEMUA route
+
+Middleware Route    →  $app->get('/path', handler)->add($middleware)
+                       Jalan di route TERTENTU saja
+
+Middleware Group    →  $app->group('/prefix', routes)->add($middleware)
+                       Jalan di SEMUA route dalam group
+
+Urutan 2 middleware →  ->add($B)->add($A)  =  A jalan dulu, baru B
+
+Wajib ada          →  $handler->handle($request)  ← untuk lanjut ke route!
+
+
+
+
+
+1.3 =
+Route Parameter  →  $args['namaParam']
+                    Didefinisikan di URL: /user/{id}
+
+Query String     →  $request->getQueryParams()
+                    Diakses dari URL: /user?id=42
+
+Optional Param   →  /kategori[/{nama}]  +  $args['nama'] ?? 'default'
+
+Regex Param      →  /produk/{id:[0-9]+}  ← hanya angka yang lolos
+
+
+
+
+1.2 = Browser/Client  ──→  REQUEST  ──→  Slim App  ──→  RESPONSE  ──→  Browser/Client
+    = D)
+
+    // Ambil SATU header tertentu
+    // getHeaderLine() (langsung string, lebih praktis)
+    $contentType    = $request->getHeaderLine('Content-Type');
+    $userAgent      = $request->getHeaderLine('User-Agent');
+    $Accept    = $request->getHeaderLine('Accept');
+
+┌──────┬─────────────────────────────┬────────────────────────────────┐
+│  No  │  Method                     │  Fungsi                        │
+├──────┼─────────────────────────────┼────────────────────────────────┤
+│  1   │  getMethod()                │  Baca HTTP method              │
+│      │  getUri()                   │  Baca URL lengkap              │
+│      │  getUri()->getPath()        │  Baca path URL aja             │
+├──────┼─────────────────────────────┼────────────────────────────────┤
+│  2   │  getQueryParams()           │  Baca data dari URL (?key=val) │
+├──────┼─────────────────────────────┼────────────────────────────────┤
+│  3   │  getParsedBody()            │  Baca data dari Body           │
+├──────┼─────────────────────────────┼────────────────────────────────┤
+│  4   │  getHeaders()               │  Baca semua header             │
+│      │  getHeaderLine('xxx')       │  Baca satu header              │
+├──────┼─────────────────────────────┼────────────────────────────────┤
+│  5   │  getParsedBody()            │  Baca raw body                 │
+│      │  + json_encode()            │  (karena pakai middleware)     │
+├──────┼─────────────────────────────┼────────────────────────────────┤
+│  6   │  hasHeader('xxx')           │  Cek header ada atau tidak     │
+└──────┴─────────────────────────────┴────────────────────────────────┘
+
+
+
+1.2 RESPONSE
+- kenapa membuat custom header, apa tujuannya ?
+- apa tujuannya Location di header, saya kira header ini bagian teks aja kaya body, apakah header itu komunikasi ke browser untuk bagaimana browser merespown atau seperti apa ?
+- apa contoh penggunaan kondisi bukannya itu dibackend yang biasa di ada di controller yah untuk load page views itu?
+- kenapa kita yang memberikan status 400 / 200 kenapa sepertinya manual gini buat api !
+
+FASE 1 → Fondasi Slim API (lagi jalan) ✅ sebagian
+FASE 2 → Database & ORM
+FASE 3 → REST API ← TITIK TEMU antara C++ dan PHP
+FASE 4 → Authentication
+FASE 5 → MFC C++ Dasar
+5.1 → Struktur Project MFC di Visual Studio
+5.2 → Dialog, Button, TextBox, ListBox
+5.3 → Event Handler (klik tombol, dll)
+5.4 → Logika C++ di MFC (kondisi, looping, fungsi)
+FASE 6 → MFC C++ Konek ke API
+6.1 → Konsep HTTP Request dari C++
+6.2 → WinHTTP / libcurl (library buat hit API)
+6.3 → Parse JSON di C++ (pakai nlohmann/json)
+6.4 → GET Request → tampil data ke ListBox
+6.5 → POST Request → kirim form ke API
+6.6 → Handle Token JWT di C++
+FASE 7 → Bikin Aplikasi Nyata (gabungan keduanya)
+Bikin 1 aplikasi utuh, contoh:
+→ Aplikasi Data Karyawan
+→ Login dari MFC → dapat JWT
+→ CRUD data lewat API
+→ Tampil di MFC
+
